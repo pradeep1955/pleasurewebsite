@@ -23,6 +23,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', include('home.urls')),  # Change to ads.urls
+    path('contacts/', include('myapp.urls')),
     path('polls/', include('polls.urls')),
     path('ads', include('ads.urls')),
     path('blog/', include('blog.urls')),

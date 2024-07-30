@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'ads',
     'blog',
     'polls',
+    'myapp',
 
     # Sample Applications - don't copy
 ]
