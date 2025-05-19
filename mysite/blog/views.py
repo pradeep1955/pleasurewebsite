@@ -4,9 +4,21 @@ from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
 
+from polls.models import Question, Choice
+
 
 def home(request):
-    context = {'posts': Post.objects.all()}
+    # Fetch all blog posts
+    posts = Post.objects.all()
+    
+    # Fetch the latest polls (adjust the query as needed)
+    latest_question_list = Question.objects.order_by('-pub_date')[:5]  # Fetch the latest 5 polls
+
+    # Prepare the context with both posts and polls
+    context = {
+        'posts': posts,
+        'latest_question_list': latest_question_list,
+    }
     return render(request, 'blog/home.html', context)
 
 class PostListView(ListView):
