@@ -1,4 +1,4 @@
-
+#56705d89d857e0189227cca64c3ab1b3f36926a6
 # Copy this file to github_settings.py (don't check it into github)
 
 # Go to https://github.com/settings/developers
@@ -17,8 +17,9 @@
 
 # Then copy the client_key and secret to this file
 
-SOCIAL_AUTH_GITHUB_KEY = '69b1c9c208ddb599cbef'
-SOCIAL_AUTH_GITHUB_SECRET = '56705d89d857e0189227cca64c3ab1b3f36926a6'
+#SOCIAL_AUTH_GITHUB_KEY = '69b1c9c208ddb599cbef'
+SOCIAL_AUTH_GITHUB_KEY = 'Ov23lig6pIpjkOLAAmCu'
+SOCIAL_AUTH_GITHUB_SECRET = '3eeb4d07e49ac2ee2fdee12e7704f5f80b07d4ef'
 
 # Ask for the user's email (don't edit this line)
 SOCIAL_AUTH_GITHUB_SCOPE = ['prdpchowdhary@gmail.com']

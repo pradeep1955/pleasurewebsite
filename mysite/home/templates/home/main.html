@@ -3,27 +3,87 @@
 {% block content %}
     <h1>Welcome to {{ settings.APP_NAME }}</h1>
     <header>
-        <h1>Pradeep Chowdhary</h1>
+       <h1>Pradeep Chowdhary</h1>
         <p>Retired Engineer | Part-Time Web developer | Data Science explorer</p>
     </header>
 
     <nav>
+        <li><a href="blog" target="_blank">blog</a> - A very simple view</li>
+        <li><a href="blog/about" target="_blank">about</a> - A very simple view</li>
         <li><a href="ads" target="_blank">ads</a> - A very simple view</li>
-        <li><a href="site" target="_blank">site</a> - A very simple view</li>
         <li> <a href="polls">Polls</a></li>
         <a href="#album">Album</a>
         <a href="#contact">Contact</a>
     </nav>
 
-    <div class="landing">
-        <h1>Welcome to My Personal Webpage</h1>
+<!--    <div class="landing"><P>
+        <img src={% static "image/waynadcoffeee2.png" %} alt="Placeholder Image">
+    </p></div>-->
+        <div class="landing">
+        <iframe src="{% url 'stock_chart' %}" style="width:100%; height:600px; border:none;"></iframe>
+        </div>
+
+    <div>
+       <h1></h1>
+       <h2></h2>
+    </div>
+    <div id="about" class="section">
+        <p><h1>Our Economy:</h1></p><p><h2> Economists Warn of Recession Risks Due to Trump's Tariffs</h2></p>
+        <p><h3>many economists believe that the tariffs imposed by former President Donald Trump on countries, including India, would primarily affect American consumers and the U.S. economy. Tariffs function as taxes on imported goods, and importers often pass these additional costs onto consumers, leading to higher prices and potential inflation. For instance, the Federal Reserve Bank of Boston estimated that widespread tariffs could increase inflation by 1.4% to 2.2% .​
+Business Insider
+
+Furthermore, these tariffs were expected to slow economic growth and increase the risk of recession. Prior to the tariffs, indicators already suggested sluggish growth, with projections of minimal GDP increases or even contractions. The introduction of tariffs was anticipated to further dampen growth, raise prices, and curtail hiring .​
+MarketWatch
+
+Regarding India's perspective, the impact of U.S. tariffs was considered limited due to India's domestically-driven economy and substantial services exports, which were less likely to be targeted by tariffs. S&P Global Ratings noted that India's reliance on domestic demand and services trade with the U.S. would mitigate the effects of such tariffs . Economist Swaminathan Aiyar also suggested that India's minimal presence in U.S. trade dynamics meant that the direct impact would be small, though global economic uncertainty could indirectly affect India's growth .​
+ThePrint+1Times of India+1
+ET Now News
+
+In summary, while the tariffs were intended to protect U.S. industries, many economists argued that they would likely lead to higher costs for American consumers and potentially harm the U.S. economy more than the targeted countries.​
+Economists Warn of Recession Risks Due to Trump's Tariffs</h3></p>
+    </div>
+    <div id="about" class="section">
+        <p><h2></h2></p>
+        <p><h3></h3></p>
+        <p><h3></h3></p>
+        <p><h3></h3></p>
+
     </div>
 
     <div id="about" class="section">
-        <h2>About Me</h2>
-        <p>Hello! I'm Pradeep Chowdhary, a retired engineer who has developed a keen interest in data science. After a fulfilling career in engineering, I now spend my time learning new technologies and exploring the fascinating world of data science. I enjoy solving complex problems and leveraging data to uncover insights and drive decision-making.</p>
-    </div>
+        <p><h2>News From Indian Stock Market</h2></p>
+        <p><h3>Over the past few days, the Indian stock market has experienced significant volatility, primarily influenced by external factors such as the recent imposition of a 26% tariff on Indian imports by U.S. President Donald Trump.​
+(ET)
 
+Market Performance:
+
+   <p> April 1, 2025: The Sensex plunged by 1,391 points, closing below 76,000, while the Nifty fell below 23,200. This decline was attributed to profit-booking following a recent rally and concerns over stretched valuations.</p> ​
+   
+<p> April 2, 2025: In contrast, the market rebounded, with the Sensex gaining 593 points and the Nifty closing above 23,300. This uptick was driven by gains in IT and banking stocks as investors anticipated potential impacts of the impending U.S. tariffs. ​</p>
+
+   <p> April 3, 2025: Following the official announcement of the U.S. tariffs, the Sensex declined by 322 points, closing at 76,295.36, and the Nifty settled at 23,250.10, down 82.25 points. The IT sector was notably affected, with the Nifty IT index tumbling 4.2%. ​
+   </p>
+
+Analyst Insights:
+
+AS per ET Analysts suggest that the market may continue to experience fluctuations as it reacts to global trade developments. Key support and resistance levels for the Nifty are identified at 23,000 and 23,800, respectively. Additionally, April has historically been a strong month for the Nifty, closing positive in seven of the last ten years, which may offer some optimism for investors. ​
+
+Investor Recommendations:
+
+Given the current market conditions, investors are advised to exercise caution and consider sector-specific impacts when making investment decisions. Diversifying portfolios and focusing on fundamentally strong companies may help mitigate risks associated with ongoing trade tensions.</h3></p>
+        <p><h3>However, on January 17, 2025, the BSE Sensex finished about 0.6% lower at 76,619.3,
+        halting gains from the prior three sessions. This decline was attributed to concerns over slowing earnings and
+        foreign fund outflows. Market sentiment was further dampened by uncertainty surrounding the incoming
+        Trump administration and rising crude prices.
+
+Despite these short-term volatilities, the long-term outlook for India's economy remains positive.
+Deloitte has revised its annual GDP
+growth projection for India to between 6.5% and 6.8% for the current fiscal year,
+and between 6.7% and 7.3% for the following year. This growth is expected to be driven by domestic consumption and investment.</h3></p>
+    <p><h3>In summary, while the Indian stock market is currently experiencing volatility due to global economic factors and
+    domestic challenges, the underlying economic fundamentals suggest a resilient and growing economy. Investors should consider
+    both domestic developments and international trends, as these will continue to influence market performance in the future.</h3></p>
+    </div>
     <div id="projects" class="section">
         <h2>Projects</h2>
         <p>As I continue my journey in data science, I am working on various projects to apply my knowledge and skills. These projects include data analysis, machine learning models, and more. Stay tuned for updates on my latest work and accomplishments.</p>
@@ -33,28 +93,29 @@
         <h2>Album</h2>
         <div class="album">
             <div class="folder">
-                <h3>Folder 1</h3>
-                <img src="https://via.placeholder.com/300x200" alt="Placeholder Image">
-                <video controls>
-                     <source src="{% static 'videos/myvideo.mp4' %}" type="video/mp4"> 
-                     Your browser does not support the video tag.
-                </video>
+                <h2>Together, we are stronger, brighter, and limitless—building a life where love, trust, and dreams grow every day.</h2>
+<ul>
+
+        <li><h3>–</h3><h2><span style="color: red;">Pronnoy</span> <span style="color: teal;">and</span> <span style="color: blue;">Surabhi</span></h2><h3>April 29th 2025</h3></li>
+
+</ul>
+
             </div>
             <div class="folder">
                 <h3>Folder 2</h3>
                 <img src={% static "videos/pradeep3.jpg" %} alt="Placeholder Image">
-                <video controls>
-                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
             </div>
             <div class="folder">
-                <h3>Folder 3</h3>
-                <img src="https://via.placeholder.com/300x200" alt="Placeholder Image">
-                <video controls>
-                    <source src="{% static 'videos/myvideo.mp4' %}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+                <h1>Chatbot</h1>
+
+    <div id="chatbox" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll;">
+</div>
+<form id="chat-form" action="" method="POST" style="text-align: center;">
+    {% csrf_token %}
+    <input type="text" id="user-input" placeholder="Type your message" required style="width: 80%;" />
+    <button type="submit">Send</button>
+</form>
+
             </div>
         </div>
     </div>

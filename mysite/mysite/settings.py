@@ -9,11 +9,22 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-
+from dotenv import load_dotenv
 import os
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+load_dotenv(os.path.join(BASE_DIR, '.env'))  # Add this line
+
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', 'default-api-key-if-missing')
+
+#import os
+#from dotenv import load_dotenv
+#OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', 'default-api-key-if-missing')
+#api_key = os.getenv("OPENAI_API_KEY")
+
+
+#load_dotenv()
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Used for a default title
 APP_NAME = 'Pleasure Web Site'   # Add
@@ -22,10 +33,10 @@ APP_NAME = 'Pleasure Web Site'   # Add
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'g$iqqu&*mw4_sg3(#ld0sqaalxebel&168^yj%i&sgrw(fmn@w'
 
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -43,6 +54,7 @@ INSTALLED_APPS = [
     # Extensions - installed with pip3 / requirements.txt
     'django_extensions',
     'crispy_forms',
+    'crispy_bootstrap5',
     'rest_framework',
     'social_django',
     'taggit',
@@ -50,13 +62,19 @@ INSTALLED_APPS = [
     'ads',
     'blog',
     'polls',
+    'livestream',
     'myapp',
-
+    'users',
+    'event',
+    'mystocks',
     # Sample Applications - don't copy
 ]
 
+#AUTH_USER_MODEL = 'myapp.CustomUser'
+
+
 # When we get to crispy forms :)
-CRISPY_TEMPLATE_PACK = 'bootstrap3'  # Add
+CRISPY_TEMPLATE_PACK = 'bootstrap5'  # Add
 
 # When we get to tagging
 TAGGIT_CASE_INSENSITIVE = True
@@ -77,7 +95,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'home/templates'), os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -157,6 +175,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 # Add the settings below
 
 REST_FRAMEWORK = {
@@ -217,4 +239,14 @@ if (len(sys.argv) >= 2 and sys.argv[1] == 'runserver'):
             },
         }
     }
+### auth password reset pw: "lkmt utfs nqwd oyhx "
 '''
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+
+MIDDLEWARE.insert(0, 'myapp.middleware.BlockBotMiddleware')
+print(f"OPENAI Key loaded in settings: {OPENAI_API_KEY}")
