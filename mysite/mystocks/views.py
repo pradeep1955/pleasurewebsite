@@ -19,13 +19,13 @@ print("Loaded API Key:", os.getenv("OPENAI_API_KEY"))
 @xframe_options_exempt
 def stock_chart(request):
     symbol = request.GET.get('symbol', 'SBIN.BO')  # Default to SBIN.BO
-    favorite_stocks = ['SBIN.BO', 'BHARTIARTL.BO', 'TCS.BO', 'INFY.BO', 'ADANIPORTS.BO']
+    favorite_stocks = ['SBIN.BO', 'TCS.BO', 'INFY.BO']
     # Delete old data before fetching fresh
     StockPrice.objects.filter(symbol=symbol).delete()
     fetch_and_store_if_needed(symbol)
     data = StockPrice.objects.filter(symbol=symbol).order_by('date')
 
-   
+
     if not data.exists():
         chart = None
         comment = "No data available to generate commentary."
@@ -118,7 +118,7 @@ def stock_chart(request):
     return render(request, 'mystocks/stock_chart.html', {
         'chart': chart,
         'symbol': symbol,
-        'favorite_stocks': favorite_stocks, 
+        'favorite_stocks': favorite_stocks,
         'comment': comment
     })
 

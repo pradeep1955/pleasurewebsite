@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'users',
     'event',
     'mystocks',
+    'iotdata',
     # Sample Applications - don't copy
 ]
 
