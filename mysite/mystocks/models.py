@@ -1,7 +1,5 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
+from django.utils import timezone
 
 class StockPrice(models.Model):
     symbol = models.CharField(max_length=10)
@@ -11,6 +9,7 @@ class StockPrice(models.Model):
     low = models.FloatField()
     close = models.FloatField()
     volume = models.BigIntegerField()
+    last_updated = models.DateTimeField(default=timezone.now)  # New field
 
     class Meta:
         unique_together = ('symbol', 'date')

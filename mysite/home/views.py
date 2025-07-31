@@ -23,12 +23,6 @@ _ = load_dotenv(find_dotenv()) # read local .env file
 
 openai.api_key  = os.environ['OPENAI_API_KEY']
 
-# Set OpenAI API key
-# Create your views here.
-
-# This is a little complex because we need to detect when we are
-# running in various configurations
-import logging
 logger = logging.getLogger(__name__)
 
 sensor_data = {"temperature": None, "humidity": None}
@@ -36,6 +30,7 @@ sensor_data = {"temperature": None, "humidity": None}
 
 
 @method_decorator(never_cache, name='dispatch')
+@method_decorator(csrf_exempt, name='dispatch')
 class HomeView(View):
     def get(self, request):
         host = request.get_host()
@@ -72,28 +67,6 @@ class HomeView(View):
         }
         return render(request, 'home/main.html', context)
 
-
-    def post(self, request):
-        logger.info("POST request received.")
-        user_message = request.POST.get('message')
-        chatbot_response = "Sorry, something went wrong. Please try again."
-
-        if user_message:
-            try:
-                openai.api_key = settings.OPENAI_API_KEY
-                response = openai.ChatCompletion.create(
-                    model="gpt-4",
-                    messages=[{"role": "user", "content": user_message}]
-                )
-                chatbot_response = response['choices'][0]['message']['content']
-            except Exception as e:
-                logger.error(f"Chat bot error: {e}")
-                chatbot_response = "Error: Unable to process the request. Please try again."
-
-        return JsonResponse({'message': chatbot_response})
-
-
-
 @csrf_exempt
 def receive_sensor_data(request):
     global sensor_data
@@ -111,3 +84,37 @@ def receive_sensor_data(request):
         except Exception as e:
             return JsonResponse({"status": "error", "message": str(e)})
     return JsonResponse({"status": "only POST allowed"})
+
+
+@csrf_exempt
+def chatbot_view(request):
+    if request.method == "POST":
+        try:
+            # Handling JSON POST request explicitly
+            data = json.loads(request.body)
+            user_message = data.get('message', "").strip()
+            
+            # Check for an empty message
+            if not user_message:
+                return JsonResponse({'message': "Please enter a valid message."})
+
+            openai.api_key = settings.OPENAI_API_KEY
+
+            # Calling OpenAI API to get the chatbot response
+            response = openai.chat.completions.create(
+                model="gpt-4",
+                messages=[
+                    {"role": "user", "content": user_message}
+                ]
+            )
+            
+            # Getting the response content
+            chatbot_response = response.choices[0].message.content if response.choices[0] else "No response from model."
+
+            return JsonResponse({'message': chatbot_response})
+        
+        except Exception as e:
+            return JsonResponse({'message': "Error: Unable to process the request. Please try again. Detail: " + str(e)})
+    
+    else:
+        return JsonResponse({"message": "This endpoint only accepts POST requests."})

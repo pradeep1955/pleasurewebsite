@@ -1,150 +1,73 @@
 {% extends "base_bootstrap.html" %}
 {% load static %}
 {% block content %}
-    <h1>Welcome to {{ settings.APP_NAME }}</h1>
-    <header>
-       <h1>Pradeep Chowdhary</h1>
-        <p>Retired Engineer | Part-Time Web developer | Data Science explorer</p>
+<div class="landing">
+    <h1 class="main-title">Welcome to {{ settings.APP_NAME }}</h1>
+    <header class="intro-header">
+       <h2>Pradeep Chowdhary</h2>
+       <p class="subtitle">Retired Engineer | Part-Time Web developer | Data Science explorer</p>
     </header>
 
-    <nav>
-        <li><a href="blog" target="_blank">blog</a> - A very simple view</li>
-        <li><a href="blog/about" target="_blank">about</a> - A very simple view</li>
-        <li><a href="ads" target="_blank">ads</a> - A very simple view</li>
-        <li> <a href="polls">Polls</a></li>
-        <a href="#album">Album</a>
-        <a href="#contact">Contact</a>
+    <nav class="navbar">
+        <ul>
+            <li><a href="{% url 'blog-home' %}">Blog</a></li>
+            <li><a href="{% url 'blog-about' %}">About</a></li>
+            <li><a href="{% url 'ads:index' %}">Ads</a></li>
+            <li><a href="{% url 'polls:index' %}">Polls</a></li>
+            <li><a href="#album">Album</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
     </nav>
 
-<!--    <div class="landing"><P>
-        <img src={% static "image/waynadcoffeee2.png" %} alt="Placeholder Image">
-    </p></div>-->
-        <div class="landing">
-        <iframe src="{% url 'stock_chart' %}" style="width:100%; height:600px; border:none;"></iframe>
+    <div class="landing-iframe">
+        <iframe src="{% url 'stock_chart' %}" title="Stock Chart" style="width:100%; height:600px; border:none;"></iframe>
+    </div>
+
+    <div class="news-highlights section">
+        <h1>🔥 Recent News Highlights:</h1>
+        <div class="news-article">
+            <h2>Israel-Gaza Conflict: A leaked U.S. intelligence report assesses that American strikes have minimally impacted Iran's nuclear program.</h2>
         </div>
-
-    <div>
-       <h1></h1>
-       <h2></h2>
+        <div class="news-article">
+            <h2>British Backpacker: Authorities have announced a new reward for information regarding the remains of Peter Falconio.</h2>
+        </div>
+        <div class="news-article">
+            <h2>🌍 Theft at Wedding Reception: A man in Singapore was sentenced to a year in prison after stealing approximately $40,000.</h2>
+        </div>
+        <div class="news-article">
+            <h2>Space Exploration: India successfully sent its first astronaut into space in 41 years, marking a significant achievement.</h2>
+        </div>
     </div>
-    <div id="about" class="section">
-        <p><h1>🔥 Recent News Highlights:</h1></p><p><h2> Israel-Gaza Conflict: A leaked U.S. intelligence report assesses that American strikes have minimally impacted Iran's nuclear program,
-        with official statements claiming the program has only been delayed by "a few months." Reports also indicate a fragile ceasefire between Iran and Israel, with conditions evolving quickly.</h2></p>
-        <p><h3>British Backpacker: Authorities have announced a new reward for information regarding the remains of Peter Falconio, 24 years after his murder in Australia.. </h3>
-        <h3>🌍 Theft at Wedding Reception: A man in Singapore was sentenced to a year in prison after stealing approximately $40,000 in cash from a wedding reception.</h3>
-<h3>Australian Journalist Dismissal: A journalist has won an unfair dismissal case against ABC over her termination related to a post about Gaza..</h3></p>
-<h3>Space Exploration: India successfully sent its first astronaut into space in 41 years, marking a significant achievement in India's space program.</h3>
-<h3>Health Concerns: A global study identifies millions of children at risk due to stalled vaccine uptake, increasing the likelihood of outbreaks of preventable diseases..</h3>
-<h3>Environment and Technology: Discussions arise around the fate of half a million dogs in South Korea following a decision to ban dog meat and concerns regarding the impact of fast technology on waste..</h3>    </div>
-    <div id="about" class="section"><h3></h3>
-        <p><h2>Health: A Lancet study reveals that 1.44 million children in India are still ‘zero-dose’ vaccinated.</h2></p>
-        <p><h3>(Politics): The Supreme Court questioned probe agencies regarding the direct summons to lawyers.</h3></p>
-        <p><h3>International Relations: NATO leaders agreed to enhance military funding amid ongoing geopolitical tensions.</h3></p>
-        <p><h3>Education: The CBSE has approved a policy for conducting board exams twice a year for Class 10 students.</h3></p>
-
+    
+    <div class="section about">
+        <h2>About Me</h2>
+        <p>As I continue my journey in data science, I am working on various projects to apply my knowledge and skills. Stay tuned for updates on my latest work and accomplishments.</p>
     </div>
 
-    <div id="about" class="section">
-        <p><h2></h2></p>
-        <h3><p></p>
-        <p></p>
-
-</h3><p></p>
-        <p><h3></h3></p>
-        <p></p>
-    <p><h3></h3></p>
-    <p>.</p>
-    <p></p></div>
-    <div id="projects" class="section">
-        <h2>Projects</h2>
-        <p>As I continue my journey in data science, I am working on various projects to apply my knowledge and skills. These projects include data analysis,
-        machine learning models, and more. Stay tuned for updates on my latest work and accomplishments.</p>
-    </div>
-
-    <div id="album" class="section">
+    <div class="section album" id="album">
         <h2>Album</h2>
-        <div class="album">
-            <div class="folder">
-                <h2>This column will bring you some beatiful photos of Bangalore</h2>
-                <h2>Current Room Readings</h2>
+        <div class="album-photos">
+            <div class="photo-folder">
+                <h3>This column will bring you some beautiful photos of Bangalore</h3>
+                <img src="{% static 'videos/pradeep3.jpg' %}" alt="Placeholder Image" class="album-image">
+            </div>
+            <div class="photo-folder">
+                <h3>Current Room Readings</h3>
                 <h3>🌡 Temperature: {{ temperature|floatformat:1 }} °C</h3>
                 <h3>💧 Humidity: {{ humidity|floatformat:1 }} %</h3>
                 <p><em>Last updated: {{ last_updated }}</em></p>
-                <h3>📊 Temperature & Humidity Chart (Last 50 Readings)</h3>
-<canvas id="sensorChart" width="100%" height="40"></canvas>
-
-<!-- Chart.js Library -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-const ctx = document.getElementById('sensorChart').getContext('2d');
-
-const sensorChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: {{ labels|safe }},
-        datasets: [
-            {
-                label: '🌡 Temperature (°C)',
-                data: {{ temperature_data|safe }},
-                borderColor: 'red',
-                fill: false,
-                tension: 0.3
-            },
-            {
-                label: '💧 Humidity (%)',
-                data: {{ humidity_data|safe }},
-                borderColor: 'blue',
-                fill: false,
-                tension: 0.3
-            }
-        ]
-    },
-    options: {
-        responsive: true,
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
-</script>
-
-<ul>
-
-        <li><h3>–</h3><h2><span style="color: red;">Bangalore</span> <span style="color: teal;">a IT hub expanding fast</span>
-        <span style="color: blue;">Karnataka</span></h2><h3>India</h3></li>
-
-</ul>
-
-            </div>
-            <div class="folder">
-                <h3>Folder 2</h3>
-                <img src={% static "videos/pradeep3.jpg" %} alt="Placeholder Image">
-            </div>
-            <div class="folder">
-                <h1>Chatbot</h1>
-
-    <div id="chatbox" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll;">
-</div>
-<form id="chat-form" action="" method="POST" style="text-align: center;">
-    {% csrf_token %}
-    <input type="text" id="user-input" placeholder="Type your message" required style="width: 80%;" />
-    <button type="submit">Send</button>
-</form>
-
+                <canvas id="sensorChart" width="100%" height="40"></canvas>
             </div>
         </div>
     </div>
 
-    <div id="contact" class="section">
-        <h2>Contact</h2>
-        <p>If you would like to get in touch with me, feel free to reach out via email at <a href="mailto:pradeep@example.com">pradeep@example.com</a>.
-        I am always open to discussing data science, collaboration opportunities, or any other interesting topics.</p>
+    <div class="section contact" id="contact">
+        <h2>Contact Me</h2>
+        <p>If you would like to get in touch with me, feel free to reach out via email at <a href="mailto:pradeep@example.com">pradeep@example.com</a>.</p>
     </div>
 
     <footer>
         <p>&copy; 2024 Pradeep Chowdhary</p>
     </footer>
+</div>
 {% endblock content %}

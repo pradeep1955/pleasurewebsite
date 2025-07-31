@@ -15,7 +15,7 @@
         <a href="#album">Album</a>
         <a href="#contact">Contact</a>
     </nav>
-
+         <p><h3>Disclaimer: This content is AI generated not a investment guide.</h3></p>
 <!--    <div class="landing"><P>
         <img src={% static "image/waynadcoffeee2.png" %} alt="Placeholder Image">
     </p></div>-->
@@ -72,7 +72,7 @@
                 <h3>📊 Temperature & Humidity Chart (Last 50 Readings)</h3>
 <canvas id="sensorChart" width="100%" height="40"></canvas>
 
-<!-- Chart.js Library -->
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
@@ -127,15 +127,47 @@ const sensorChart = new Chart(ctx, {
 
     <div id="chatbox" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll;">
 </div>
+
 <form id="chat-form" action="" method="POST" style="text-align: center;">
     {% csrf_token %}
-    <input type="text" id="user-input" placeholder="Type your message" required style="width: 80%;" />
+    <input type="text" name="message" id="user-input" placeholder="Type your message" required style="width: 80%;" />
     <button type="submit">Send</button>
 </form>
+
 
             </div>
         </div>
     </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   
+<script>
+$(document).ready(function() {
+    $('#chat-form').on('submit', function(e) {
+        e.preventDefault();
+        var userInput = $('#user-input').val();
+
+        $.ajax({
+            url: '/chat/',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                'message': userInput,
+            }),
+            success: function(response) {
+                $('#chatbox').append('<div>User: ' + userInput + '</div>');
+                $('#chatbox').append('<div>Bot: ' + response.message + '</div>');
+                $('#user-input').val('');
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+                $('#chatbox').append('<div>Error communicating with the bot</div>');
+            }
+        });
+    });
+});
+</script>
+
 
     <div id="contact" class="section">
         <h2>Contact</h2>
