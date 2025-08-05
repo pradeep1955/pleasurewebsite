@@ -24,6 +24,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('home.urls')),
+    path('news/', include('news.urls')),
     path('mystocks/', include('mystocks.urls')),
     path('events/', include('event.urls')),
     path('livestream/', include('livestream.urls')),  # Add this line

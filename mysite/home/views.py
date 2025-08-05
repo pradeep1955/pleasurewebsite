@@ -10,14 +10,15 @@ import logging
 import openai
 from django.views.decorators.csrf import csrf_exempt
 from .models import SensorReading
-from django.utils.decorators import method_decorator
 import json
-from .models import SensorReading
+from django.views.generic import TemplateView
 from django.utils.timezone import localtime
 from django.utils import timezone
 from datetime import timedelta
 
-
+from news.models import DailyNews
+from datetime import date
+from news.utils import get_or_update_today_news
 from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv()) # read local .env file
 
@@ -32,6 +33,11 @@ sensor_data = {"temperature": None, "humidity": None}
 @method_decorator(never_cache, name='dispatch')
 @method_decorator(csrf_exempt, name='dispatch')
 class HomeView(View):
+    def get(self, request, *args, **kwargs):
+        news = get_or_update_today_news()  # ✅ fetch today's news
+        print("NEWS HTML:", news.summary_html)  # for debugging
+        return render(request, 'home/main.html', {"news_summary": news.summary_html})
+
     def get(self, request):
         host = request.get_host()
         islocal = 'localhost' in host or '127.0.0.1' in host

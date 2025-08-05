@@ -23,25 +23,19 @@
         <iframe src="{% url 'stock_chart' %}" style="width:100%; height:600px; border:none;"></iframe>
         </div>
 
+        <div class="landing">
+    <h2>Today's News Summary</h2>
     <div>
-       <h1></h1>
-       <h2></h2>
+        {% if news_summary %}
+            {{ news_summary|safe }}
+        {% else %}
+            <p>No news available for today.</p>
+        {% endif %}
     </div>
-    <div id="about" class="section">
-        <p><h1>🔥 Recent News Highlights:</h1></p><p><h2>QUAD Nations Launch Coast Guard Cooperation Initiative</h2></p>
-        <p><h3>Indian Economy: A report from the Reserve Bank of India highlights that the Indian economy remains a key driver of global growth.</h3>
-        <h3>Hyderabad Factory Incident: A reactor blast in a pharma unit resulted in 12 fatalities, with 13 workers being rescued.</h3>
-<h3>Australian Journalist Dismissal: A journalist has won an unfair dismissal case against ABC over her termination related to a post about Gaza..</h3></p>
-<h3>Space Exploration: India successfully sent its first astronaut into space in 41 years, marking a significant achievement in India's space program.</h3>
-<h3>Weather Alert: The Indian Meteorological Department warns of above-normal rainfall expected in July across central India and parts of Uttarakhand and Haryana.</h3>
-<h3>Environment and Technology: Discussions arise around the fate of half a million dogs in South Korea following a decision to ban dog meat and concerns regarding the impact of fast technology on waste..</h3>    </div>
-    <div id="about" class="section"><h3></h3>
-        <p><h2>Health: A Lancet study reveals that 1.44 million children in India are still ‘zero-dose’ vaccinated.</h2></p>
-        <p><h3>(Politics): The Supreme Court questioned probe agencies regarding the direct summons to lawyers.</h3></p>
-        <p><h3>International Relations: NATO leaders agreed to enhance military funding amid ongoing geopolitical tensions.</h3></p>
-        <p><h3>Education: The CBSE has approved a policy for conducting board exams twice a year for Class 10 students.</h3></p>
+</div>
 
-    </div>
+    
+
 
     <div id="about" class="section">
         <p><h2></h2></p>

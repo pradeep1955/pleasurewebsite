@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'event',
     'mystocks',
     'iotdata',
+    'news',
     # Sample Applications - don't copy
 ]
 
@@ -250,4 +251,3 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
 MIDDLEWARE.insert(0, 'myapp.middleware.BlockBotMiddleware')
-print(f"OPENAI Key loaded in settings: {OPENAI_API_KEY}")
