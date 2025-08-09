@@ -28,3 +28,4 @@ staticfiles/
 .DS_Store
 
 django4/
+settings.py
