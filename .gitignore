@@ -1,5 +1,37 @@
-__pycache__
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# ===== Swap files (Vim, etc.) =====
 *.swp
+
+# ===== Django Database =====
 *.sqlite
 *.sqlite3
-*.env
+db.sqlite3
+zip.sqlite3
+
+# ===== Environment files =====
+.env
+
+# ===== Virtual environment =====
+venv/
+env/
+ENV/
+
+# ===== Static files (collected) =====
+staticfiles/
+
+# ===== IDE/editor folders =====
+.vscode/
+.idea/
+
+# ===== System files =====
+.DS_Store
+
+# ===== Django specific =====
+django4/
+mysite/settings.py
