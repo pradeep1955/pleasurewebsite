@@ -3,8 +3,8 @@
 {% block content %}
     <h1>Welcome to {{ settings.APP_NAME }}</h1>
     <header>
-       <h1>Pradeep Chowdhary</h1>
-        <p>Retired Engineer | Part-Time Web developer | Data Science explorer</p>
+       <h3>AI generated stock market analysis, News summary, Weather report</h3>
+        <p>Ask your question on chatbot | Blog  | Data Science </p>
     </header>
 
     <nav>
@@ -24,15 +24,33 @@
         </div>
 
         <div class="landing">
-    <h2>Today's News Summary</h2>
-    <div>
-        {% if news_summary %}
-            {{ news_summary|safe }}
-        {% else %}
-            <p>No news available for today.</p>
-        {% endif %}
-    </div>
+
+
+<div id="about" class="section" style="font-family: Arial, sans-serif; margin: 20px; padding: 20px; border: 1px solid #ccc;">
+    <h1 style="font-size: 24px; color: #333;">Today's Newspaper Abstract</h1>
+    <h2 style="font-size: 20px; color: #555;">Top Headlines</h2>
+    <h3>
+        <ul style="list-style-type: square; margin-left: 20px; color: #666;">
+            <li>More women than men deleted from electoral rolls in Bihar during SIR: Data</li>
+            <li>The fear of losing a school: issues surrounding U.P. school merger plan</li>
+            <li>Beginner’s luck or the start of a new chapter in Indian cricket?</li>
+            <li>From layoffs to learning: the new IT workforce demands due to AI and automation</li>
+            <li>Uncertainty prevails over the cause of Uttarkashi flash floods</li>
+            <li>India's INDI bloc decides to contest the Vice-Presidential polls</li>
+            <li>Shots fired at Kapil Sharma's Kap's Cafe in Canada, incident recurs</li>
+            <li>Israeli Security Cabinet approves plan for Gaza City amid escalating conflict</li>
+        </ul>
+    </h3>
+    <h2 style="font-size: 20px; color: #555;">Editorial Summary</h2>
+    <h3>
+        <p style="color: #666;">The editorial emphasizes the importance of careful economic management by the Reserve Bank of India, highlighting the recent pause in rate cuts amidst various uncertainties. Furthermore, it reflects on India's improving relations as evidenced by a state visit from the Philippines President, underlining the need for deliberate diplomatic engagements.</p>
+    </h3>
 </div>
+    
+
+    </div>
+
+
 
     
 

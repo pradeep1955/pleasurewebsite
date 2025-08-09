@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views import View
 from django.conf import settings
 import requests
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 import os
 import logging
 import openai
@@ -33,10 +33,26 @@ sensor_data = {"temperature": None, "humidity": None}
 @method_decorator(never_cache, name='dispatch')
 @method_decorator(csrf_exempt, name='dispatch')
 class HomeView(View):
-    def get(self, request, *args, **kwargs):
-        news = get_or_update_today_news()  # ✅ fetch today's news
-        print("NEWS HTML:", news.summary_html)  # for debugging
-        return render(request, 'home/main.html', {"news_summary": news.summary_html})
+
+    def get(self, request):
+        host = request.get_host()
+        islocal = 'localhost' in host or '127.0.0.1' in host
+        print("--- HomeView GET method was called! ---") 
+        # 2. Call the function to get the news object
+        today_news = get_or_update_today_news()
+        print(f"News object retrieved: {today_news}") # 👈 Add this to see the object
+        print(f"News summary content: '{today_news.summary_html}'") # 👈 Add this to see the content
+
+        # 3. Add the news summary to the context for the template
+        context = {
+            'news_summary': today_news.summary_html,
+            # You can add any other context data your home page needs
+            'welcome_message': 'Welcome to the Main Page!'
+        }
+       
+        return render(request, 'home/main.html', context)
+
+
 
     def get(self, request):
         host = request.get_host()
@@ -46,7 +62,6 @@ class HomeView(View):
         now = timezone.now()
         start_time = now - timedelta(hours=12)
         readings = SensorReading.objects.filter(timestamp__gte=start_time).order_by('timestamp')
-
         # Downsample to 15-min intervals
         interval_readings = []
         last_time = None
@@ -124,3 +139,4 @@ def chatbot_view(request):
     
     else:
         return JsonResponse({"message": "This endpoint only accepts POST requests."})
+

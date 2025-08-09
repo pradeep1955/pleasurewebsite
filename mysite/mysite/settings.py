@@ -38,6 +38,47 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+# your_project/settings.py
+
+# ... all your other settings like DEBUG = False ...
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {message}",
+            "style": "{",
+        },
+    },
+    # This handler writes logs to the standard error stream
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+    },
+    # Apply the handler to the loggers
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "home": {
+            "handlers": ["console"],
+            "level": "DEBUG", # Capture DEBUG messages from your 'home' app
+            "propagate": True,
+        },
+        "news": {
+            "handlers": ["console"],
+            "level": "DEBUG", # Capture DEBUG messages from your 'news' app
+            "propagate": True,
+        },
+    },
+}
+
+
 ALLOWED_HOSTS = ['*']
 
 # Application definition
