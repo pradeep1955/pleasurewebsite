@@ -87,3 +87,18 @@ footer {
 }
 .message.user { text-align: right; color: blue; }
 .message.bot { text-align: left; color: green; }
+
+
+.page-header-custom {
+    background-color: #444444; /* A dark, modern grey */
+    color: white;              /* Sets the font color to white */
+    padding: 30px;             /* Adds comfortable spacing inside the box */
+    border-radius: 8px;        /* Gives it slightly rounded corners */
+    margin-bottom: 30px;       /* Adds space below the header */
+}
+
+/* This makes the main heading inside the header a bit larger */
+.page-header-custom h3 {
+    margin-top: 0;
+    font-size: 24px;
+}

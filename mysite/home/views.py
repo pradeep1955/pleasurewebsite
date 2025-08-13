@@ -33,64 +33,50 @@ sensor_data = {"temperature": None, "humidity": None}
 @method_decorator(never_cache, name='dispatch')
 @method_decorator(csrf_exempt, name='dispatch')
 class HomeView(View):
-
+    # This is now the one and only 'get' method
     def get(self, request):
-        host = request.get_host()
-        islocal = 'localhost' in host or '127.0.0.1' in host
-        print("--- HomeView GET method was called! ---") 
-        # 2. Call the function to get the news object
+        # --- 1. Get News Data ---
         today_news = get_or_update_today_news()
-        print(f"News object retrieved: {today_news}") # 👈 Add this to see the object
-        print(f"News summary content: '{today_news.summary_html}'") # 👈 Add this to see the content
 
-        # 3. Add the news summary to the context for the template
-        context = {
-            'news_summary': today_news.summary_html,
-            # You can add any other context data your home page needs
-            'welcome_message': 'Welcome to the Main Page!'
-        }
-       
-        return render(request, 'home/main.html', context)
-
-
-
-    def get(self, request):
-        host = request.get_host()
-        islocal = 'localhost' in host or '127.0.0.1' in host
-
-        # Get last 12 hours of data
+        # --- 2. Get Sensor Data ---
         now = timezone.now()
         start_time = now - timedelta(hours=12)
         readings = SensorReading.objects.filter(timestamp__gte=start_time).order_by('timestamp')
-        # Downsample to 15-min intervals
+        
         interval_readings = []
         last_time = None
         for reading in readings:
             if not last_time or (reading.timestamp - last_time).total_seconds() >= 900:
                 interval_readings.append(reading)
                 last_time = reading.timestamp
-
-        # Get latest reading
+        
         try:
             latest = SensorReading.objects.latest('timestamp')
         except SensorReading.DoesNotExist:
             latest = None
 
+        # --- 3. Combine ALL data into ONE context dictionary ---
         context = {
+            # Data for the news
+            'news_summary': today_news.summary_html,
+
+            # Data for the charts and sensors
             'temperature_data': [r.temperature for r in interval_readings],
             'humidity_data': [r.humidity for r in interval_readings],
             'labels': [localtime(r.timestamp).strftime("%H:%M") for r in interval_readings],
-            'installed': settings.INSTALLED_APPS,
-            'islocal': islocal,
             'temperature': latest.temperature if latest else None,
             'humidity': latest.humidity if latest else None,
             'last_updated': localtime(latest.timestamp).strftime("%Y-%m-%d %H:%M:%S") if latest else "No data",
         }
+        
+        # --- 4. Render the template once with the complete context ---
         return render(request, 'home/main.html', context)
+
 
 @csrf_exempt
 def receive_sensor_data(request):
     global sensor_data
+    global corrected_data
     if request.method == "POST":
         try:
             data = json.loads(request.body)

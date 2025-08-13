@@ -1,95 +1,79 @@
 {% extends "base_bootstrap.html" %}
 {% load static %}
+
 {% block content %}
-    <h1>Welcome to {{ settings.APP_NAME }}</h1>
-    <header>
-       <h3>AI generated stock market analysis, News summary, Weather report</h3>
-        <p>Ask your question on chatbot | Blog  | Data Science </p>
+
+<div class="container page-content">
+
+    <header class="text-center page-header-custom">
+    <h3>AI generated stock market analysis, News summary, & Weather report</h3>
+    <p>Ask a question on the chatbot below, read the blog, or explore my data science projects.</p>
+    <p class="small"><strong>Disclaimer:</strong> This content is AI generated and not investment advice.</p>
     </header>
 
-    <nav>
-        <li><a href="blog" target="_blank">blog</a> - A very simple view</li>
-        <li><a href="blog/about" target="_blank">about</a> - A very simple view</li>
-        <li><a href="ads" target="_blank">ads</a> - A very simple view</li>
-        <li> <a href="polls">Polls</a></li>
-        <a href="#album">Album</a>
-        <a href="#contact">Contact</a>
-    </nav>
-         <p><h3>Disclaimer: This content is AI generated not a investment guide.</h3></p>
-<!--    <div class="landing"><P>
-        <img src={% static "image/waynadcoffeee2.png" %} alt="Placeholder Image">
-    </p></div>-->
-        <div class="landing">
+    <hr>
+
+    <div class="content-section">
+        <h2>Stock Market Analysis</h2>
         <iframe src="{% url 'stock_chart' %}" style="width:100%; height:600px; border:none;"></iframe>
+    </div>
+
+    <hr>
+
+    <div class="content-section">
+        <h2>Today's News <small>(AI Generated)</small></h2>
+        <div class="news-content" style="border: 1px solid #eee; padding: 15px; border-radius: 5px;">
+            {{ news_summary|safe }}
         </div>
-
-        <div class="landing">
-
-
-<div id="about" class="section" style="font-family: Arial, sans-serif; margin: 20px; padding: 20px; border: 1px solid #ccc;">
-    <h1 style="font-size: 24px; color: #333;">Today's Newspaper Abstract</h1>
-    <h2 style="font-size: 20px; color: #555;">Top Headlines</h2>
-    <h3>
-        <ul style="list-style-type: square; margin-left: 20px; color: #666;">
-            <li>More women than men deleted from electoral rolls in Bihar during SIR: Data</li>
-            <li>The fear of losing a school: issues surrounding U.P. school merger plan</li>
-            <li>Beginner’s luck or the start of a new chapter in Indian cricket?</li>
-            <li>From layoffs to learning: the new IT workforce demands due to AI and automation</li>
-            <li>Uncertainty prevails over the cause of Uttarkashi flash floods</li>
-            <li>India's INDI bloc decides to contest the Vice-Presidential polls</li>
-            <li>Shots fired at Kapil Sharma's Kap's Cafe in Canada, incident recurs</li>
-            <li>Israeli Security Cabinet approves plan for Gaza City amid escalating conflict</li>
-        </ul>
-    </h3>
-    <h2 style="font-size: 20px; color: #555;">Editorial Summary</h2>
-    <h3>
-        <p style="color: #666;">The editorial emphasizes the importance of careful economic management by the Reserve Bank of India, highlighting the recent pause in rate cuts amidst various uncertainties. Furthermore, it reflects on India's improving relations as evidenced by a state visit from the Philippines President, underlining the need for deliberate diplomatic engagements.</p>
-    </h3>
-</div>
-    
-
     </div>
 
+    <hr>
 
-
-    
-
-
-    <div id="about" class="section">
-        <p><h2></h2></p>
-        <h3><p><a href="https://www.pleasurewebsite.com/blog/about"> Visit about page</a></a></p>
-        <p></p>
-
-</h3><p></p>
-        <p><h3></h3></p>
-        <p></p>
-    <p><h3></h3></p>
-    <p>.</p>
-    <p></p></div>
-    <div id="projects" class="section">
-        <h2>Projects</h2>
-        <p>As I continue my journey in data science, I am working on various projects to apply my knowledge and skills. These projects include data analysis,
-        machine learning models, and more. Stay tuned for updates on my latest work and accomplishments.</p>
+    <div class="content-section">
+        <h2>Room Sensor Data</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <h4>Current Readings</h4>
+                <p>
+                    🌡 Temperature: <strong>{{ temperature|floatformat:1 }} °C</strong><br>
+                    💧 Humidity: <strong>{{ humidity|floatformat:1 }} %</strong><br>
+                    <em><small>Last updated: {{ last_updated }}</small></em>
+                </p>
+            </div>
+            <div class="col-md-8">
+                <h4>Chart (Last 12 Hours)</h4>
+                <canvas id="sensorChart"></canvas>
+            </div>
+        </div>
     </div>
 
-    <div id="album" class="section">
-        <h2>Album</h2>
-        <div class="album">
-            <div class="folder">
-                <h2>This column will bring you some beatiful photos of Bangalore</h2>
-                <h2>Current Room Readings</h2>
-                <h3>🌡 Temperature: {{ temperature|floatformat:1 }} °C</h3>
-                <h3>💧 Humidity: {{ humidity|floatformat:1 }} %</h3>
-                <p><em>Last updated: {{ last_updated }}</em></p>
-                <h3>📊 Temperature & Humidity Chart (Last 50 Readings)</h3>
-<canvas id="sensorChart" width="100%" height="40"></canvas>
+    <hr>
 
+    <div class="content-section">
+        <h2>Chatbot</h2>
+        <div id="chatbox" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll; border-radius: 5px; margin-bottom: 10px;">
+            </div>
+        <form id="chat-form" method="POST">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="text" id="user-input" class="form-control" placeholder="Type your message..." required />
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit">Send</button>
+                </span>
+            </div>
+        </form>
+    </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <hr>
+
+    <footer>
+        <p class="text-center">&copy; 2024 Pradeep Chowdhary</p>
+    </footer>
+
+</div> <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
 const ctx = document.getElementById('sensorChart').getContext('2d');
-
 const sensorChart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -99,95 +83,53 @@ const sensorChart = new Chart(ctx, {
                 label: '🌡 Temperature (°C)',
                 data: {{ temperature_data|safe }},
                 borderColor: 'red',
-                fill: false,
-                tension: 0.3
+                tension: 0.1
             },
             {
                 label: '💧 Humidity (%)',
                 data: {{ humidity_data|safe }},
                 borderColor: 'blue',
-                fill: false,
-                tension: 0.3
+                tension: 0.1
             }
         ]
     },
     options: {
         responsive: true,
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
+        scales: { y: { beginAtZero: false } }
     }
 });
 </script>
 
-<ul>
-
-        <li><h3>–</h3><h2><span style="color: red;">Bangalore</span> <span style="color: teal;">a IT hub expanding fast</span>
-        <span style="color: blue;">Karnataka</span></h2><h3>India</h3></li>
-
-</ul>
-
-            </div>
-            <div class="folder">
-                <h3>Folder 2</h3>
-                <img src={% static "videos/pradeep3.jpg" %} alt="Placeholder Image">
-            </div>
-            <div class="folder">
-                <h1>Chatbot</h1>
-
-    <div id="chatbox" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll;">
-</div>
-
-<form id="chat-form" action="" method="POST" style="text-align: center;">
-    {% csrf_token %}
-    <input type="text" name="message" id="user-input" placeholder="Type your message" required style="width: 80%;" />
-    <button type="submit">Send</button>
-</form>
-
-
-            </div>
-        </div>
-    </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-   
 <script>
 $(document).ready(function() {
     $('#chat-form').on('submit', function(e) {
         e.preventDefault();
-        var userInput = $('#user-input').val();
+        var userInput = $('#user-input').val().trim();
+        if (userInput === "") return; // Don't send empty messages
+
+        $('#chatbox').append('<div style="text-align: right; margin: 5px;"><strong>You:</strong> ' + userInput + '</div>');
+        $('#user-input').val('');
+        
+        // Scroll chatbox to the bottom
+        $('#chatbox').scrollTop($('#chatbox')[0].scrollHeight);
 
         $.ajax({
-            url: '/chat/',
+            url: "{% url 'chatbot' %}", // Use the Django URL tag
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({
-                'message': userInput,
-            }),
+            headers: {'X-CSRFToken': '{{ csrf_token }}'}, // Include CSRF token in header
+            data: JSON.stringify({'message': userInput}),
             success: function(response) {
-                $('#chatbox').append('<div>User: ' + userInput + '</div>');
-                $('#chatbox').append('<div>Bot: ' + response.message + '</div>');
-                $('#user-input').val('');
+                $('#chatbox').append('<div style="text-align: left; margin: 5px;"><strong>Bot:</strong> ' + response.message + '</div>');
+                $('#chatbox').scrollTop($('#chatbox')[0].scrollHeight);
             },
             error: function(xhr, status, error) {
                 console.log("Error: " + error);
-                $('#chatbox').append('<div>Error communicating with the bot</div>');
+                $('#chatbox').append('<div style="color: red;">Error communicating with the bot.</div>');
             }
         });
     });
 });
 </script>
 
-
-    <div id="contact" class="section">
-        <h2>Contact</h2>
-        <p>If you would like to get in touch with me, feel free to reach out via email at <a href="mailto:pradeep@example.com">pradeep@example.com</a>.
-        I am always open to discussing data science, collaboration opportunities, or any other interesting topics.</p>
-    </div>
-
-    <footer>
-        <p>&copy; 2024 Pradeep Chowdhary</p>
-    </footer>
 {% endblock content %}
