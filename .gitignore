@@ -1,0 +1,49 @@
+__pycache__/
+*.py[cod]
+*.log
+*.sqlite3
+.env
+venv/
+*.env
+media/
+staticfiles/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*/migrations/__pycache__/
+# Python cache
+__pycache__/
+*.py[cod]
+*.log
+
+# SQLite databases (local only)
+*.sqlite3
+
+# Environment variables and secrets
+.env
+*.env
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Django collected static & media
+media/
+staticfiles/
+
+# IDE/editor settings
+.vscode/
+.idea/
+
+# OS junk files
+.DS_Store
+Thumbs.db
+
+# Django migration caches
+*/migrations/__pycache__/
+
+# Optional: compiled files or backups
+*.bak
+*.tmp
